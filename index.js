@@ -36,6 +36,17 @@ app.set('view engine', 'ejs');
 app.use('/login', loginRoutes);
 app.use('/register', registerRoutes);
 app.use('/', appRoutes);
+app.use(flash());
+
+// tambahkan ini
+app.use(function(req, res, next) {
+    res.setHeader('Cache-Control', 'no-cache, private, no-store, must-revalidate, max-stale=0, post-check=0, pre-check=0');
+    res.setHeader('Pragma', 'no-cache');
+    next();
+});
+// end
+
+app.set('views',path.join(__dirname,'src/views'));
 
 // Gunakan port server
 app.listen(5050, ()=>{
